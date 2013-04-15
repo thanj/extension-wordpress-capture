@@ -3,7 +3,7 @@
 Plugin Name: Janrain Capture
 Plugin URI: http://janrain.com/capture/
 Description: Collect, store and leverage user profile data from social networks in a flexible, lightweight hosted database.
-Version: 0.2.1
+Version: 0.2.2-beta
 Author: Janrain
 Author URI: http://developers.janrain.com/extensions/wordpress-for-capture/
 License: Apache License, Version 2.0
@@ -182,7 +182,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 				//die(); // uncomment to show debug data
 			}
 			if ( $origin != '' ) {
-				$r = esc_url( $origin );
+				$r = "'" . esc_url( $origin ) . "'";
 			} else {
 				$r = 'window.top.location.href';
 			}
@@ -218,7 +218,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 	if(window.top.CAPTURE && window.top.CAPTURE.closeAuth) {
 		window.top.CAPTURE.closeAuth();
 	} else {
-		window.top.location.href = '$r';
+		window.top.location.href = $r;
 	}
 			}
 		</script>
