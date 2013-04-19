@@ -112,11 +112,14 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 					$blog_id = ( is_multisite() )
 						? 1
 						: $GLOBALS['blog_id'];
+					#check for WP user existence
 					$exists  = get_users( array( 'blog_id' => $blog_id, 'meta_key' => self::$name . '_uuid', 'meta_value' => $user_entity['uuid'] ) );
 					if ( count( $exists ) < 1 ) {
+						#no user found using capture ID, try checking by nickname
 						$exists = get_users( array( 'blog_id' => $blog_id, 'meta_key' => 'nickname', 'meta_value' => $user_entity['uuid'] ) );
 					}
 					if ( count( $exists ) < 1 ) {
+						#pretty sure no wordpress user for this capture user so lets make one!
 						$user_attrs = array();
 						$user_attrs['user_pass'] = wp_generate_password( $length = 12, $include_standard_special_chars = false );
 						if ( self::get_option( self::$name . '_user_email' ) ) {
@@ -133,38 +136,39 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 						}
 						$user_id = wp_insert_user( $user_attrs );
 						if ( is_wp_error( $user_id ) ) {
+							#failed to create the WP user from this Capture user
 							echo $user_id->get_error_message();
 							//die(); // uncomment to show debug data
 						}
+						#link new WP user to this Capture user
 						if ( ! add_user_meta( $user_id, self::$name . '_uuid', $user_entity['uuid'], true ) ) {
 							echo 'Janrain Capture: Failed to set uuid on new user';
 							//die(); // uncomment to show debug data
 						}
-						if ( ! current_user_can('manage_options') ) {
-							if ( ! $this->update_user_data( $user_id, $user_entity, true ) ) {
-								echo 'Janrain Capture: Failed to update user data';
-								//die(); // uncomment to show debug data
-							}
+						if ( ! $this->update_user_data( $user_id, $user_entity, true ) ) {
+							echo 'Janrain Capture: Failed to update user data';
+							//die(); // uncomment to show debug data
 						}
 						if ( is_multisite() ) {
 							add_user_to_blog( 1, $user_id, 'subscriber' );
 						}
 					} else {
+						#a wordpress user exists for this capture user lets update the profile data!
 						$user    = $exists[0];
 						$user_id = $user->ID;
 						if ( $user_id && $user_id != 0 ) {
 							do_action( self :: $name . '_user_logged_in' , $user_id );
 						}
-						if ( ! current_user_can( 'manage_options' ) ) {
-							if ( ! $this->update_user_data( $user_id, $user_entity ) ) {
-								echo 'Janrain Capture: Failed to update user data';
-								// die(); // uncomment to show debug data
-							}
+						#do not update administrators
+						if ( ! $this->update_user_data( $user_id, $user_entity ) ) {
+							echo 'Janrain Capture: Failed to update user data';
+							// die(); // uncomment to show debug data
 						}
 						if ( is_multisite() && ! is_user_member_of_blog( $user_id ) ) {
 							add_user_to_blog( get_current_blog_id(), $user_id, 'subscriber' );
 						}
 					}
+
 					if ( ! $api->update_user_meta( $user_id ) ) {
 						echo 'Janrain Capture: Failed to update user meta';
 						// die(); // uncomment to show debug data
@@ -392,10 +396,8 @@ SCREEN;
 				}
 				$user_entity = $user_entity['result'];
 				do_action( self::$name . '_user_entity_loaded', $user_entity );
-				if ( ! current_user_can( 'manage_options' ) ) {
-					if ( ! $this->update_user_data( $user_id, $user_entity ) ) {
-						throw new Exception( 'Janrain Capture: Failed to update user data' );
-					}
+				if ( ! $this->update_user_data( $user_id, $user_entity ) ) {
+					throw new Exception( 'Janrain Capture: Failed to update user data' );
 				}
 			} else {
 				throw new Exception( 'Janrain Capture: Could not retrieve user entity' );
@@ -407,6 +409,8 @@ SCREEN;
 		/**
 		 * Method used for updating user data with returned Capture user data
 		 *
+		 * ignores user 1 (superadmin) and also ignores users with admin privileges.
+		 *
 		 * @param int $user_id
 		 *   The ID of the user to update
 		 * @param array $user_entity
@@ -415,6 +419,11 @@ SCREEN;
 		 *   Success or failure
 		 */
 		function update_user_data( $user_id, $user_entity, $meta_only = false ) {
+			#check for super user to skip updates.
+			if ($user_id == 1 || user_can($user_id, 'manage_options')) {
+				#disallow updates to the superuser.
+				return true;
+			}
 			if ( ! $user_id || ! is_array( $user_entity ) ) {
 				throw new Exception( 'Janrain Capture: Not a valid User ID or User Entity' );
 			}
