@@ -211,7 +211,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 					}
 				} else {
 				 // redirect to page passed as origin querystring param
-					window.top.location.href = '$r';
+					window.top.location.href = $r;
 				}
 			} else {
 			// Legacy Capture UI flow
