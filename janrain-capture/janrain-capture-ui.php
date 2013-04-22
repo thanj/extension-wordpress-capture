@@ -156,7 +156,7 @@ class JanrainCaptureUi {
 	 *   The modified logout URL.
 	 */
 	function logout_url( $logout_url, $redirect ) {
-		if (empty($redirect)) {
+		if ( empty( $redirect ) ) {
 			$logout_url = wp_logout_url( self::current_page_url() );
 		}
 		$url = str_replace( '&amp;', '&', $logout_url );
@@ -411,7 +411,7 @@ SSO;
 			$settings['capture.stylesheets'] = '';
 			foreach ( $dir as $fileinfo ) {
 				$fn = $fileinfo->getFilename();
-				if ( ! $fileinfo->isDot() && stripos( $fn,'.css' ) ) {
+				if ( ! $fileinfo->isDot() && stripos( $fn, '.css' ) ) {
 					switch ( true ){
 						// if file begins with mobile set is as a mobile style
 						case stripos( $fn, 'mobile' ) === 0:
@@ -583,7 +583,7 @@ BACKPLANE2;
 		$file = JanrainCapture::get_option( JanrainCapture::$name . '_widget_auth_screen' );
 		$file_js = preg_replace('"\.(php|html|htm)$"', '.js', $file);
 		echo '<script type="text/javascript">';
-		if( $this->local ) {
+		if ( $this->local ) {
 			include_once $url . $file_js;
 		} else {
 			wp_remote_request( $url . $file_js );
@@ -616,7 +616,7 @@ BACKPLANE2;
 		$file = JanrainCapture::get_option( JanrainCapture::$name . '_widget_edit_screen' );
 		$file_js = preg_replace( '"\.(php|html|htm)$"', '.js', $file );
 		echo '<script type="text/javascript">';
-		if( $this->local ) {
+		if ( $this->local ) {
 			include_once $url . $file_js;
 		} else {
 			echo wp_remote_request( $url . $file_js );

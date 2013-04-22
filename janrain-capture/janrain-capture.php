@@ -82,12 +82,11 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 				$code = $_REQUEST['verification_code'];
 			}
 			if ( ! ctype_alnum( $code ) && ! $code) {
-				echo 'Janrain Capture: received code was not valid';
-				die();
+				throw new Exception( 'Janrain Capture: received code was not valid' );
 			}
 			if ( $url_type ) {
 				$this->widget_show_screen($url_type, $code);
-				die();
+				exit;
 			}
 			$origin = isset( $_REQUEST['origin'] )
 				? $_REQUEST['origin']
@@ -137,17 +136,15 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 						$user_id = wp_insert_user( $user_attrs );
 						if ( is_wp_error( $user_id ) ) {
 							#failed to create the WP user from this Capture user
-							echo $user_id->get_error_message();
-							//die(); // uncomment to show debug data
+							throw new Exception( $user_id->get_error_message() );
 						}
 						#link new WP user to this Capture user
 						if ( ! add_user_meta( $user_id, self::$name . '_uuid', $user_entity['uuid'], true ) ) {
-							echo 'Janrain Capture: Failed to set uuid on new user';
-							//die(); // uncomment to show debug data
+							#failed to set user meta should never happen!
+							throw new Exception( 'Janrain Capture: Failed to set uuid on new user' );
 						}
 						if ( ! $this->update_user_data( $user_id, $user_entity, true ) ) {
-							echo 'Janrain Capture: Failed to update user data';
-							//die(); // uncomment to show debug data
+							throw new Exception( 'Janrain Capture: Failed to update user data' );
 						}
 						if ( is_multisite() ) {
 							add_user_to_blog( 1, $user_id, 'subscriber' );
@@ -161,29 +158,26 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 						}
 						#do not update administrators
 						if ( ! $this->update_user_data( $user_id, $user_entity ) ) {
-							echo 'Janrain Capture: Failed to update user data';
-							// die(); // uncomment to show debug data
+							throw new Exception( 'Janrain Capture: Failed to update user data' );
 						}
 						if ( is_multisite() && ! is_user_member_of_blog( $user_id ) ) {
 							add_user_to_blog( get_current_blog_id(), $user_id, 'subscriber' );
 						}
 					}
-
 					if ( ! $api->update_user_meta( $user_id ) ) {
-						echo 'Janrain Capture: Failed to update user meta';
-						// die(); // uncomment to show debug data
+						throw new Exception( 'Janrain Capture: Failed to update user meta' );
 					}
 					if ( $api->password_recover === true ) {
 						wp_redirect( add_query_arg( array( 'janrain_capture_action' => 'password_recover' ), home_url() ) );
 					}
 					wp_set_auth_cookie( $user_id );
 				} else {
-					echo 'Janrain Capture: Could not retrieve user entity';
-					// die(); // uncomment to show debug data
+					throw new Exception( 'Janrain Capture: Could not retrieve user entity' );
 				}
 			} else {
-				echo 'Janrain Capture: Could not retrieve access_token' ;
-				//die(); // uncomment to show debug data
+				if ( WP_DEBUG ) {
+					throw new Exception( 'Janrain Capture: Could not retrieve access_token' );
+				}
 			}
 			if ( $origin != '' ) {
 				$r = "'" . esc_url( $origin ) . "'";
@@ -279,9 +273,9 @@ REDIRECT;
 		}
 
 		/**
-	 * Method used for the janrain_capture_profile action on admin-ajax.php.
-	 * This method renders the edit profile screen.
-	 */
+		 * Method used for the janrain_capture_profile action on admin-ajax.php.
+		 * This method renders the edit profile screen.
+		 */
 		function widget_redir() {
 			$r = self::get_option( self::$name . '_widget_edit_page' );
 			echo <<<RDIR
@@ -755,6 +749,6 @@ XDCOMM;
 
 add_action('init', 'janrain_capture_init_wrap');
 function janrain_capture_init_wrap() {
-	$capture = new JanrainCapture;
+	$capture = new JanrainCapture();
 	$capture->init();
 }
