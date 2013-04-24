@@ -1,5 +1,5 @@
 === Janrain Capture ===
-Contributors: bhamrick, rwright, jeremyjanrain
+Contributors: bhamrick, rwright, jeremyjanrain, byron-janrain
 Tags: capture, janrain, sso
 Requires at least: 3.0
 Tested up to: 3.1
