@@ -478,7 +478,6 @@ WIDGETCAPTURE;
 			// engage settings
 			janrain.settings.appUrl = '<?php echo $settings['appUrl'] ?>';
 			janrain.settings.tokenAction = 'event';
-			janrain.settings.providers =['google', 'twitter', 'facebook', 'linkedin'];
 			<?php
 		}
 
