@@ -78,7 +78,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 				? $_REQUEST['url_type']
 				: false;
 			if ( ! ctype_alnum( str_replace( '-', '', $url_type ) ) ) {
-				header( 'HTTP/1.1 500 Internal Server Error' );
+				header( 'HTTP/1.1 400 Bad Request' );
 				exit;
 			}
 			if ( isset( $_REQUEST['verification_code'] ) ) {
