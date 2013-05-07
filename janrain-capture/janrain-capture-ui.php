@@ -502,8 +502,6 @@ WIDGETCAPTURE;
 			<?php
 		}
 
-		include_once $this->ifolder . '/settings.php';
-
 		echo <<<WIDGETFINISH
 
 		function isReady() { janrain.ready = true; };
