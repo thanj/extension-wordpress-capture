@@ -262,6 +262,7 @@ $legacy_share
 function setShare(url, title, desc, img, provider) {
 	janrain.engage.share.setUrl(url);
 	janrain.engage.share.setTitle(title);
+	janrain.engage.share.setMessage(title);
 	janrain.engage.share.setDescription(desc);
 	janrain.engage.share.setImage(img);
 	janrain.engage.share.showProvider(provider);
