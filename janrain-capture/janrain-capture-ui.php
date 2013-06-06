@@ -390,10 +390,7 @@ SSO;
 		$settings['capture.packages']      = JanrainCapture::get_option( JanrainCapture::$name . '_widget_packages' );
 		$janrain_packages = implode( "','", $settings['capture.packages'] );
 		$settings['capture.recaptchaPublicKey'] = JanrainCapture::get_option( JanrainCapture::$name . '_widget_recaptcha_pk' );
-
-		$engageAppUrl = JanrainCapture::get_option( 'janrain_capture_widget_engage_url' );
-		$engageAppName  = strstr( parse_url( $engageAppUrl, PHP_URL_HOST ), '.', true);
-		$settings['capture.loadJsUrl'] = "d16s8pqtk4uodx.cloudfront.net/{$engageAppName}/load.js";
+		$settings['capture.loadJsUrl']          = JanrainCapture::get_option( JanrainCapture::$name . '_widget_load_js' );
 
 		// engage
 		$settings['appUrl'] = JanrainCapture::get_option( JanrainCapture::$name . '_widget_engage_url' );

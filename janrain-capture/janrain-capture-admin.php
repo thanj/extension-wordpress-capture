@@ -341,6 +341,15 @@ class JanrainCaptureAdmin {
 
 			# widget UI settings
 			array(
+				'name' => JanrainCapture::$name . '_widget_load_js',
+				'title' => 'Url for load.js file',
+				'description' => 'The absolute url (minus protocol) of the Widget load.js file <br/>(example: d16s8pqtk4uodx.cloudfront.net/default/load.js)',
+				'default' => 'd16s8pqtk4uodx.cloudfront.net/default/load.js',
+				'required' => true,
+				'type' => 'text',
+				'screen' => 'widgetui',
+			),
+			array(
 				'name' => JanrainCapture::$name . '_widget_reg_flow',
 				'title' => 'Registration Flow',
 				'description' => 'Change this only when instructed to do so (default: socialRegistration)',
