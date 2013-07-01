@@ -629,11 +629,11 @@ XDCOMM;
 				);
 				extract( shortcode_atts( $atts, $args ) );
 				$link        = '';
-				$url         = addslashes( htmlspecialchars( $url ) );
-				$description = addslashes( htmlspecialchars( $description ) );
-				$title       = addslashes( htmlspecialchars( $title ) );
-				$img         = addslashes( htmlspecialchars( $img ) );
-				$text        = htmlspecialchars( $text );
+				$url         = esc_js( esc_url( $url ) );
+				$description = esc_js( $description );
+				$title       = esc_js( $title );
+				$img         = esc_js( esc_url( $img ) );
+				$text        = $text;
 				$onclick     = "setShare('$url', '$title', '$description', '$img', this.getAttribute('rel'))";
 				if ( $icons  = self::social_icons( $onclick ) ) {
 					$link .= '<div class="janrain-share-container"><span class="janrain-share-text">' . $text . '</span>'.$icons.'</div>';
