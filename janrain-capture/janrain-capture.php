@@ -19,7 +19,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 		public $basename;
 		public $url;
 		public static $name = 'janrain_capture';
-		private static $ui;
+		public static $ui;
 
 		/**
 		 * Initializes the plugin.
@@ -753,6 +753,7 @@ XDCOMM;
 
 add_action('init', 'janrain_capture_init_wrap');
 function janrain_capture_init_wrap() {
+    global $capture;
 	$capture = new JanrainCapture();
 	$capture->init();
 }
