@@ -58,7 +58,7 @@ class JanrainCaptureUi {
 	 */
 	function register_scripts() {
 		$captureName = JanrainCapture::$name;
-		$pluginDirUrl = plugin_dir_url( __FILE__ );
+		$pluginDirUrl = untrailingslashit( plugin_dir_url( __FILE__ ) );
 		wp_enqueue_script( 'json2' );
 		wp_enqueue_script( 'localstorage-polyfill',  "$pluginDirUrl/localstorage-polyfill.js" );
 

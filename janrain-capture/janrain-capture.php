@@ -25,8 +25,8 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 		 * Initializes the plugin.
 		 */
 		function init() {
-			$this->path = plugin_dir_path( __FILE__ );
-			$this->url  = plugin_dir_url( __FILE__ );
+			$this->path = untrailingslashit( plugin_dir_path( __FILE__ ) );
+			$this->url  = untrailingslashit( plugin_dir_url( __FILE__ ) );
 
 			register_activation_hook( __FILE__, array( $this, 'activate' ) );
 			require_once $this->path . '/janrain-capture-api.php';
@@ -62,7 +62,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 		 * Method bound to register_activation_hook.
 		 */
 		function activate() {
-			require_once plugin_dir_path( __FILE__ ) . '/janrain-capture-admin.php';
+			require_once dirname( __FILE__ ) . '/janrain-capture-admin.php';
 			$admin = new JanrainCaptureAdmin();
 			$admin->activate();
 		}
