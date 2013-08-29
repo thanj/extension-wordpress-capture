@@ -55,7 +55,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 				add_shortcode( 'janrain_share', array( $this, 'shortcode_share' ) );
 			}
 			require_once $this->path . '/janrain-capture-ui.php';
-			$this->ui = new JanrainCaptureUi();
+			self::$ui = new JanrainCaptureUi();
 		}
 
 		/**
@@ -190,7 +190,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 			}
 
 			$ui_type = self::get_option( self::$name . '_ui_type' );
-			echo <<<REDIRECT
+			echo <<<HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -199,7 +199,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 	</head>
 	<body>
 		<script type="text/javascript">
-			if( '$ui_type' === 'Capture') {
+			if( '{$ui_type}' === 'Capture') {
 				if(localStorage) localStorage.setItem("janrainCaptureTokenWP", '$api->access_token')
 			// User Registration Widget flow
 				if ('$r' == 'window.top.location.href') {
@@ -226,7 +226,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 		</script>
 	</body>
 </html>
-REDIRECT;
+HTML;
 			die();
 		}
 

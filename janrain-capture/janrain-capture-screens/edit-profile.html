@@ -1,11 +1,3 @@
-<script type="text/javascript">
-//set the flow name for this screen here
-janrain.settings.capture.flowName = 'plugins';
-janrain.settings.capture.screenToRender = 'editProfile';
-janrain.settings.width = 310;
-</script>
-<style>#field-janrain-capture-uuid-add-more-wrapper {display:none;}</style>
-<div id="janrain-edit-wrapper" class="profile">
 <div style="display:none;" id="editProfile">
     <h1>Edit Your Account</h1>
     <div class="capture_grid_block">
@@ -44,18 +36,18 @@ janrain.settings.width = 310;
                     <div class="capture_center_col capture_col_8">
                         <div class="capture_editCol">
                             {* editProfileForm *}
-                                    {* displayName *}
-                                    {* profileBlurb *}
-                                    {* name *}
-                                    {* email *}
-                                    {* phone *}
-                                    {* addressDrop *}
-                                    {* gender *}
-                                    {* birthdate *}
-                                    <div class="capture_form_item">
-                                        {* saveButton *}
-                                        {* savedProfileMessage *}
-                                    </div>
+                                {* displayName *}
+                                {* profileBlurb *}
+                                {* name *}
+                                {* email *}
+                                {* phone *}
+                                {* addressDrop *}
+                                {* gender *}
+                                {* birthdate *}
+                                <div class="capture_form_item">
+                                    {* saveButton *}
+                                    {* savedProfileMessage *}
+                                </div>
                             {* /editProfileForm *}
                         </div>
                     </div>
@@ -68,20 +60,20 @@ janrain.settings.width = 310;
     <div class="capture_header">
         <h1>Change password</h1>
     </div>
-    {* newPasswordFormProfile *}
+    {* newPasswordForm *}
         {* oldpassword *}
         {* newpassword *}
         {* newpasswordConfirm *}
         <div class="capture_footer">
             {* saveButton *}
         </div>
-    {* /newPasswordFormProfile *}
+    {* /newPasswordForm *}
 </div>
 <div style="display:none;" id="changePasswordSuccess">
     <div class="capture_header">
         <h1>You did it!</h1>
     </div>
-      <p>Your password has been successfully changed.</p>
+        <p>Your password has been successfully changed.</p>
     <div class="capture_footer">
         <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
     </div>
@@ -114,6 +106,4 @@ janrain.settings.width = 310;
             <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
         </div>
     </div>
-</div>
-<div id="janrainEngageEmbed" style="display:none;"></div>
 </div>
