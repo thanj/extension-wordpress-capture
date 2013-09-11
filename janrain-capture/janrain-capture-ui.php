@@ -389,7 +389,6 @@ SSO;
 		$settings['capture.registerFlow']  = JanrainCapture::get_option( JanrainCapture::$name . '_widget_reg_flow' );
 		$settings['capture.packages']      = JanrainCapture::get_option( JanrainCapture::$name . '_widget_packages' );
 		$janrain_packages = implode( "','", $settings['capture.packages'] );
-		$settings['capture.recaptchaPublicKey'] = JanrainCapture::get_option( JanrainCapture::$name . '_widget_recaptcha_pk' );
 		$settings['capture.loadJsUrl']          = JanrainCapture::get_option( JanrainCapture::$name . '_widget_load_js' );
 
 		// engage
@@ -470,9 +469,7 @@ WIDGETCAPTURE;
 			echo "\njanrain.settings.capture.conditionalIEStylesheets = '{$settings['capture.conditionalIEStylesheets']}';";
 		}
 
-		if ( $settings['capture.recaptchaPublicKey'] != '' ) {
-			echo "\njanrain.settings.capture.recaptchaPublicKey = '{$settings['capture.recaptchaPublicKey']}'; //captcha";
-		}
+		echo "\njanrain.settings.capture.recaptchaPublicKey = '6LeVKb4SAAAAAGv-hg5i6gtiOV4XrLuCDsJOnYoP'; //captcha";
 
 		if ( in_array( 'login', $settings['capture.packages'] ) ) {
 			?>
