@@ -262,14 +262,6 @@ class JanrainCaptureAdmin {
 				'screen' => 'main',
 			),
 			array(
-				'name' => JanrainCapture::$name . '_widget_recaptcha_pk',
-				'title' => 'Recaptcha Public Key',
-				'description' => 'Your Recaptcha Public Key',
-				'default' => '6LeVKb4SAAAAAGv-hg5i6gtiOV4XrLuCDsJOnYoP',
-				'type' => 'long-text',
-				'screen' => 'widget',
-			),
-			array(
 				'name' => JanrainCapture::$name . '_widget_federate',
 				'title' => 'Federate Settings',
 				'type' => 'title',
