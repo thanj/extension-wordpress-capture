@@ -231,9 +231,9 @@ class JanrainCaptureUi {
 	e.id = 'janrainWidgets';
 
 	if (document.location.protocol === 'https:') {
-		e.src = 'https://rpxnow.com/js/lib/$realm/widget.js';
+		e.src = 'https://rpxnow.com/load/$realm';
 	} else {
-		e.src = 'http://widget-cdn.rpxnow.com/js/lib/$realm/widget.js';
+		e.src = 'http://widget-cdn.rpxnow.com/load/$realm';
 	}
 
 	var s = document.getElementsByTagName('script')[0];
