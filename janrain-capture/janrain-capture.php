@@ -104,7 +104,7 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 				$redirect_args['origin'] = $origin;
 			}
 
-			$redirect_uri = admin_url( 'admin-ajax.php' ) . '?' . http_build_query( $redirect_args, '', '&' );
+			$redirect_uri = admin_url( 'admin-ajax.php', '' ) . '?' . http_build_query( $redirect_args, '', '&' );
 			$api = new JanrainCaptureApi();
 			if ( $api->new_access_token( $code, $redirect_uri ) ) {
 				$user_entity = $api->load_user_entity();
@@ -262,9 +262,9 @@ HTML;
 				throw new Exception( 'Janrain Capture: No user access token found' );
 			}
 			$args = array(
-				'redirect_uri' => admin_url( 'admin-ajax.php' ) . '?action=' . self::$name . '_redirect_uri',
+				'redirect_uri' => admin_url( 'admin-ajax.php', '' ) . '?action=' . self::$name . '_redirect_uri',
 				'client_id' => self::sanitize( self::get_option( self::$name . '_client_id' ) ),
-				'xd_receiver' => admin_url( 'admin-ajax.php' ) . '?action=' . self::$name . '_xdcomm',
+				'xd_receiver' => admin_url( 'admin-ajax.php', '' ) . '?action=' . self::$name . '_xdcomm',
 				'callback' => self::sanitize( $callback ),
 				'access_token' => $access_token,
 			);
@@ -551,7 +551,7 @@ XDCOMM;
 					$method = substr( $action, 7 );
 					$uargs['method'] = self::sanitize( $method );
 				}
-				$link  = admin_url( 'admin-ajax.php' ) . '?' . http_build_query( $uargs, '', '&' );
+				$link  = admin_url( 'admin-ajax.php', '' ) . '?' . http_build_query( $uargs, '', '&' );
 				$class = 'capture-auth';
 			} else {
 				if ( strpos( $action, 'signin' ) === 0 ) {
@@ -563,9 +563,9 @@ XDCOMM;
 				$link = 'https://' . $capture_addr . '/oauth/' . $action;
 				$args = array(
 					'response_type' => 'code',
-					'redirect_uri'  => admin_url( 'admin-ajax.php' ) . '?action=' . self::$name . '_redirect_uri',
+					'redirect_uri'  => admin_url( 'admin-ajax.php', '' ) . '?action=' . self::$name . '_redirect_uri',
 					'client_id'     => self::get_option( self::$name . '_client_id' ),
-					'xd_receiver'   => admin_url( 'admin-ajax.php' ) . '?action=' . self::$name . '_xdcomm',
+					'xd_receiver'   => admin_url( 'admin-ajax.php', '' ) . '?action=' . self::$name . '_xdcomm',
 					'recover_password_callback' => 'CAPTURE.closeRecoverPassword',
 				);
 				$link = $link . '?' . http_build_query( $args, '', '&' );
