@@ -174,7 +174,9 @@ if ( ! class_exists( 'JanrainCapture' ) ) {
 					if ( $api->password_recover === true ) {
 						wp_redirect( add_query_arg( array( 'janrain_capture_action' => 'password_recover' ), home_url() ) );
 					}
-					wp_set_auth_cookie( $user_id );
+					#set a compact privacy policy header; otherwise IE will refuse to set cookies from within an iframe
+					header('P3P: CP="NOI ADM DEV COM NAV OUR STP"');
+					wp_set_auth_cookie( $user_id, false, '' );
 				} else {
 					throw new Exception( 'Janrain Capture: Could not retrieve user entity' );
 				}
