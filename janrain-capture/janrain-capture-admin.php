@@ -317,6 +317,7 @@ class JanrainCaptureAdmin {
 				'name' => JanrainCapture::$name . '_widget_bp_server_base_url',
 				'title' => 'Server Base URL',
 				'description' => 'Your Backplane Server Base URL',
+				'prefix' => 'https://',
 				'default' => '',
 				'type' => 'text',
 				'screen' => 'widget',
@@ -727,7 +728,7 @@ FOOTER;
 				<tr>
 					<th><label for="{$field['name']}">{$field['title']}$r</label></th>
 					<td>
-						<input type="text" name="{$field['name']}" value="$value" style="width:200px" />
+						{$field['prefix']}<input type="text" name="{$field['name']}" value="$value" style="width:200px" />
 						<span class="description">{$field['description']}</span>
 					</td>
 				</tr>
