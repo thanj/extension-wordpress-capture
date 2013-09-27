@@ -314,6 +314,14 @@ class JanrainCaptureAdmin {
 				'screen' => 'widget',
 			),
 			array(
+				'name' => JanrainCapture::$name . '_widget_bp_server_base_url',
+				'title' => 'Server Base URL',
+				'description' => 'Your Backplane Server Base URL',
+				'default' => '',
+				'type' => 'text',
+				'screen' => 'widget',
+			),
+			array(
 				'name' => JanrainCapture::$name . '_widget_bp_bus_name',
 				'title' => 'Bus Name',
 				'description' => 'Your Backplane Bus Name',
