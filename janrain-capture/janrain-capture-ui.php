@@ -429,8 +429,12 @@ SSO;
 					}
 				}
 			}
+		} elseif ( $url = JanrainCapture::get_option( 'janrain_capture_widget_css_file' ) ) {
+			//old installs may have been able to set this option manually.
+			$settings['capture.stylesheets'] = "'{$url}'";
 		} else {
-			$settings['capture.stylesheets'] = "'" . JanrainCapture::get_option( JanrainCapture::$name . '_widget_css_file' ) . "'";
+			//default
+			$settings['capture.stylesheets'] = "'{$this->ifolder}/stylesheets/janrain.css'";
 		}
 
 		echo <<<WIDGETCAPTURE
@@ -507,7 +511,6 @@ WIDGETCAPTURE;
 		}
 
 		echo <<<WIDGETFINISH
-
 		function isReady() { janrain.ready = true; };
 		if (document.addEventListener) {
 				document.addEventListener("DOMContentLoaded", isReady, false);
