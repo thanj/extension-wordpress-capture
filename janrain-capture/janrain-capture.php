@@ -308,18 +308,17 @@ RDIR;
 				$js = $this->widget_get_screen( $url_type . '.js' );
 
 				echo <<<SCREEN
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-		"http://www.w3.org/1999/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/1999/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
-		<head>
-				<title>Janrain Capture</title>
-				<script type="text/javascript">
-					{$widget_js}
-					{$js}
-				</script>
-		</head>
-		<body>
-			{$screen}
+<head>
+	<title>Janrain Capture</title>
+	<script type="text/javascript">
+		{$widget_js}
+		{$js}
+	</script>
+</head>
+<body>
+	{$screen}
 SCREEN;
 		}
 
@@ -333,13 +332,8 @@ SCREEN;
 				echo "Janrain Capture: No Widget screens folder specified in Janrain Capture Interface settings";
 				return false;
 			}
-			// consider using `wp_remote_get()` here
-			// http://codex.wordpress.org/Function_API/wp_remote_get
-			 $result = file_get_contents( $folder . $fname );
-			if ( ! $result ) {
-				$result = '';
-			}
-			return $result;
+			$resp = wp_remote_get( $folder . $name );
+			return wp_remote_retrieve_body( $resp );
 		}
 
 		/**
@@ -753,7 +747,7 @@ XDCOMM;
 
 add_action('init', 'janrain_capture_init_wrap');
 function janrain_capture_init_wrap() {
-    global $capture;
+	global $capture;
 	$capture = new JanrainCapture();
 	$capture->init();
 }
