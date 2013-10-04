@@ -19,6 +19,7 @@ class JanrainCaptureAdmin {
 	function  __construct() {
 		$path = dirname( __FILE__ ) . '/janrain-capture-screens/';
 
+        /*
 		$signin = JanrainCapture::get_option( JanrainCapture::$name . '_widget_auth_screen' );
 		$signin = $signin ? $signin : 'signin.html';
 		$signin = $path . $signin;
@@ -38,7 +39,7 @@ class JanrainCaptureAdmin {
 		$verifyp = $verifyp ? $verifyp : 'verify.html';
 		$verifyp = $path . $verifyp;
 		$verifyp = wp_remote_request( $verifyp );
-
+        */
 		$site_url = site_url();
 		$this->postMessage = array( 'class' => '', 'message' => '' );
 		$this->fields = array(
