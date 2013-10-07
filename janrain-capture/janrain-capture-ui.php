@@ -429,8 +429,12 @@ SSO;
 					}
 				}
 			}
+		} elseif ( $url = JanrainCapture::get_option( 'janrain_capture_widget_css_file' ) ) {
+			//old installs may have been able to set this option manually.
+			$settings['capture.stylesheets'] = "'{$url}'";
 		} else {
-			$settings['capture.stylesheets'] = "'" . JanrainCapture::get_option( JanrainCapture::$name . '_widget_css_file' ) . "'";
+			//default
+			$settings['capture.stylesheets'] = "'{$this->ifolder}/stylesheets/janrain.css'";
 		}
 
 		echo <<<WIDGETCAPTURE
@@ -507,7 +511,6 @@ WIDGETCAPTURE;
 		}
 
 		echo <<<WIDGETFINISH
-
 		function isReady() { janrain.ready = true; };
 		if (document.addEventListener) {
 				document.addEventListener("DOMContentLoaded", isReady, false);
@@ -550,7 +553,7 @@ WIDGETFINISH;
 		if ( $ver == 1.2 ) {
 			echo <<<BACKPLANE2
 <script type="text/javascript">
- function setup_bp() {
+function setup_bp() {
 	/*
 	 * Initialize Backplane:
 	 * This creates a channel and adds a cookie for the channel.
@@ -573,7 +576,6 @@ function bp_ready() {
 		return false;
 	}
 }
-
 setup_bp();
 </script>
 BACKPLANE2;
@@ -583,12 +585,14 @@ BACKPLANE2;
 	function sign_in_screen_js() {
 		$url = $this->ifolder . '/';
 		$file = JanrainCapture::get_option( JanrainCapture::$name . '_widget_auth_screen' );
-		$file_js = preg_replace('"\.(php|html|htm)$"', '.js', $file);
+		$url .= preg_replace('"\.(php|html|htm)$"', '.js', $file);
 		echo '<script type="text/javascript">';
 		if ( $this->local ) {
-			include_once $url . $file_js;
+			include_once $url;
 		} else {
-			wp_remote_request( $url . $file_js );
+			$resp = wp_remote_get( $url );
+			$out = wp_remote_retrieve_body( $resp );
+			echo $out ?: sprintf( 'Janrain: Unable to load %s', $url );
 		}
 		echo '</script>';
 	}
@@ -599,29 +603,35 @@ BACKPLANE2;
 		if ( $this->local ) {
 			include_once $url;
 		} else {
-			echo wp_remote_request( $url );
+			$resp = wp_remote_get( $url );
+			$out = wp_remote_retrieve_body( $resp );
+			echo $out ?: sprintf( 'Janrain: Unable to load %s', $url );
 		}
 	}
 
 	function edit_screen() {
-			$url  = $this->ifolder . '/';
-			$url .= JanrainCapture::get_option( JanrainCapture::$name . '_widget_edit_screen' );
-			if ( $this->local ) {
-				include_once $url;
-			} else {
-				echo wp_remote_request( $url );
-			}
+		$url  = $this->ifolder . '/';
+		$url .= JanrainCapture::get_option( JanrainCapture::$name . '_widget_edit_screen' );
+		if ( $this->local ) {
+			include_once $url;
+		} else {
+			$resp = wp_remote_get( $url );
+			$out = wp_remote_retrieve_body( $resp );
+			echo $out ?: sprintf( 'Janrain: Unable to load %s', $url );
+		}
 	}
 
 	function edit_screen_js() {
 		$url = $this->ifolder . '/';
 		$file = JanrainCapture::get_option( JanrainCapture::$name . '_widget_edit_screen' );
-		$file_js = preg_replace( '"\.(php|html|htm)$"', '.js', $file );
+		$url .= preg_replace( '"\.(php|html|htm)$"', '.js', $file );
 		echo '<script type="text/javascript">';
 		if ( $this->local ) {
-			include_once $url . $file_js;
+			include_once $url;
 		} else {
-			echo wp_remote_request( $url . $file_js );
+			$resp = wp_remote_get( $url );
+			$out = wp_remote_retrieve_body( $resp );
+			echo $out ?: sprintf( 'Janrain: Unable to load %s', $url );
 		}
 		echo '</script>';
 	}
