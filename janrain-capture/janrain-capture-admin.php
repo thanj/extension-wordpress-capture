@@ -352,15 +352,6 @@ class JanrainCaptureAdmin {
 				'screen' => 'widgetui',
 			),
 			array(
-				'name' => JanrainCapture::$name . '_widget_reg_flow',
-				'title' => 'Registration Flow',
-				'description' => 'Change this only when instructed to do so (default: socialRegistration)',
-				'required' => true,
-				'default' => 'socialRegistration',
-				'type' => 'text',
-				'screen' => 'widgetui',
-			),
-			array(
 				'name' => JanrainCapture::$name . '_widget_edit_page',
 				'title' => 'Edit Profile Page',
 				'description' => 'Create a page with the shortcode: [janrain_capture action="edit_profile"] and remove it from the menu.<br/>(example: '.site_url().'/?page_id=2)',

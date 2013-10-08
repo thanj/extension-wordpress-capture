@@ -384,9 +384,7 @@ SSO;
 		$settings['capture.redirectUri']   = admin_url( 'admin-ajax.php' ) . '?action=' . JanrainCapture::$name . '_redirect_uri';
 		$settings['capture.appId']         = JanrainCapture::get_option( JanrainCapture::$name . '_widget_app_id' );
 		$settings['capture.clientId']      = JanrainCapture::get_option( JanrainCapture::$name . '_widget_client_id' );
-		$settings['capture.responseType']  = 'code';
 		$settings['capture.captureServer'] = JanrainCapture::get_option( JanrainCapture::$name . '_widget_address' );
-		$settings['capture.registerFlow']  = JanrainCapture::get_option( JanrainCapture::$name . '_widget_reg_flow' );
 		$settings['capture.packages']      = JanrainCapture::get_option( JanrainCapture::$name . '_widget_packages' );
 		$janrain_packages = implode( "','", $settings['capture.packages'] );
 		$settings['capture.loadJsUrl']          = JanrainCapture::get_option( JanrainCapture::$name . '_widget_load_js' );
@@ -451,9 +449,9 @@ function janrainSignOut(){
 		janrain.settings.capture.redirectUri = '{$settings["capture.redirectUri"]}';
 		janrain.settings.capture.appId= '{$settings["capture.appId"]}';
 		janrain.settings.capture.clientId = '{$settings["capture.clientId"]}';
-		janrain.settings.capture.responseType = '{$settings["capture.responseType"]}';
+		janrain.settings.capture.responseType = 'code';
 		janrain.settings.capture.captureServer = '{$settings["capture.captureServer"]}';
-		janrain.settings.capture.registerFlow = '{$settings["capture.registerFlow"]}';
+		janrain.settings.capture.registerFlow = 'socialRegistration';
 		janrain.settings.packages = ['$janrain_packages'];
 
 		janrain.settings.capture.setProfileCookie = true;
