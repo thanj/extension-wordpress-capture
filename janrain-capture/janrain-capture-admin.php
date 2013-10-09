@@ -18,28 +18,6 @@ class JanrainCaptureAdmin {
 	 */
 	function  __construct() {
 		$path = dirname( __FILE__ ) . '/janrain-capture-screens/';
-
-        /*
-		$signin = JanrainCapture::get_option( JanrainCapture::$name . '_widget_auth_screen' );
-		$signin = $signin ? $signin : 'signin.html';
-		$signin = $path . $signin;
-		$signin = wp_remote_request( $signin );
-
-		$editp  = JanrainCapture::get_option( JanrainCapture::$name . '_widget_edit_screen' );
-		$editp  = $editp ? $editp : 'edit-profile.html';
-		$editp  = $path . $editp;
-		$editp  = wp_remote_request( $editp );
-
-		$forgotp = JanrainCapture::get_option( JanrainCapture::$name . '_widget_forgot_screen' );
-		$forgotp = $forgotp ? $forgotp : 'forgot.html';
-		$forgotp = $path . $forgotp;
-		$forgotp = wp_remote_request( $forgotp );
-
-		$verifyp = JanrainCapture::get_option( JanrainCapture::$name . '_widget_verify_screen' );
-		$verifyp = $verifyp ? $verifyp : 'verify.html';
-		$verifyp = $path . $verifyp;
-		$verifyp = wp_remote_request( $verifyp );
-        */
 		$site_url = site_url();
 		$this->postMessage = array( 'class' => '', 'message' => '' );
 		$this->fields = array(
